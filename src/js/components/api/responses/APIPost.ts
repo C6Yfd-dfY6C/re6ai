@@ -45,11 +45,9 @@ interface Tags {
     general: string[];
     species: string[];
     character: string[];
-    copyright: string[];
-    artist: string[];
-    contributor: string[];
+    franchise: string[];
+    director: string[];
     invalid: string[];
-    lore: string[];
     meta: string[];
 }
 
@@ -173,13 +171,11 @@ export namespace APIPost {
 
     export function getTags(post: APIPost): string[] {
         return [
-            ...post.tags.artist,
-            ...post.tags.contributor,
+            ...post.tags.director,
+            ...post.tags.franchise,
             ...post.tags.character,
-            ...post.tags.copyright,
             ...post.tags.general,
             ...post.tags.invalid,
-            ...post.tags.lore,
             ...post.tags.meta,
             ...post.tags.species
         ];

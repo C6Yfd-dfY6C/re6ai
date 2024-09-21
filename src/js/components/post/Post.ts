@@ -40,16 +40,14 @@ export class Post implements PostData {
     public tagString: string;               // string with space-separated tags. Makes outputting tags easier
     public tags: {
         all: Set<string>;
-        artist: Set<string>;
-        real_artist: Set<string>;           // same as artist, minus tags like `conditional_dnp` or `sound_warning`. See `Tag.isArtist()` for more info.
-        contributor: Set<string>;
-        copyright: Set<string>;
+        director: Set<string>;
+        real_director: Set<string>;         // same as artist, minus tags like `conditional_dnp` or `sound_warning`. See `Tag.isArtist()` for more info.
+        franchise: Set<string>;
         species: Set<string>;
         character: Set<string>;
         general: Set<string>;
         invalid: Set<string>;               // usually empty, not sure why it even exists
         meta: Set<string>;
-        lore: Set<string>;
     };
     tagCategoriesKnown: boolean;            // false if the data is scraped from the page, and is thus missing tag category data
 
@@ -397,16 +395,14 @@ export interface PostData {
     tagString: string;
     tags: {
         all: Set<string>;
-        artist: Set<string>;
-        real_artist: Set<string>;
-        contributor: Set<string>;
-        copyright: Set<string>;
+        director: Set<string>;
+        real_director: Set<string>;
+        franchise: Set<string>;
         species: Set<string>;
         character: Set<string>;
         general: Set<string>;
         invalid: Set<string>;
         meta: Set<string>;
-        lore: Set<string>;
     };
     tagCategoriesKnown: boolean;
 
@@ -495,16 +491,14 @@ export namespace PostData {
             tagString: [...tags].sort().join(" "),
             tags: {
                 all: tags,
-                artist: new Set(data.tags.artist),
-                real_artist: new Set(data.tags.artist.filter(tag => Tag.isArtist(tag))),
-                contributor: new Set(data.tags.contributor),
-                copyright: new Set(data.tags.copyright),
+                director: new Set(data.tags.director),
+                real_director: new Set(data.tags.director.filter(tag => Tag.isArtist(tag))),
+                franchise: new Set(data.tags.franchise),
                 species: new Set(data.tags.species),
                 character: new Set(data.tags.character),
                 general: new Set(data.tags.general),
                 invalid: new Set(data.tags.invalid),
                 meta: new Set(data.tags.meta),
-                lore: new Set(data.tags.lore),
             },
             tagCategoriesKnown: true,
 
@@ -565,13 +559,11 @@ export namespace PostData {
 
         // Fetch tags - the existant ones are insufficient
         data["tags"] = {
-            artist: getTags("artist"),
-            contributor: getTags("contributor"),
+            director: getTags("director"),
+            franchise: getTags("franchise"),
             character: getTags("character"),
-            copyright: getTags("copyright"),
             general: getTags("general"),
             invalid: getTags("invalid"),
-            lore: getTags("lore"),
             meta: getTags("meta"),
             species: getTags("species"),
         };
@@ -675,16 +667,14 @@ export namespace PostData {
             tagString: tagString,
             tags: {
                 all: tagSet,
-                artist: new Set<string>(),
-                contributor: new Set<string>(),
-                real_artist: new Set<string>(),
-                copyright: new Set<string>(),
+                director: new Set<string>(),
+                real_director: new Set<string>(),
+                franchise: new Set<string>(),
                 species: new Set<string>(),
                 character: new Set<string>(),
                 general: new Set<string>(),
                 invalid: new Set<string>(),
                 meta: new Set<string>(),
-                lore: new Set<string>(),
             },
             tagCategoriesKnown: false,
 

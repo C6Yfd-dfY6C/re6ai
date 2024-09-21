@@ -158,17 +158,14 @@ export class PostFilter {
                 case FilterType.GenTags:
                     result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.general.size, value, filter.comparison)
                     break;
-                case FilterType.ArtTags:
-                    result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.artist.size, value, filter.comparison)
+                case FilterType.DirTags:
+                    result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.director.size, value, filter.comparison)
                     break;
-                case FilterType.ContTags:
-                    result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.contributor.size, value, filter.comparison)
+                case FilterType.FrancTags:
+                    result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.franchise.size, value, filter.comparison)
                     break;
                 case FilterType.CharTags:
                     result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.character.size, value, filter.comparison)
-                    break;
-                case FilterType.CopyTags:
-                    result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.copyright.size, value, filter.comparison)
                     break;
                 case FilterType.SpecTags:
                     result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.species.size, value, filter.comparison)
@@ -178,9 +175,6 @@ export class PostFilter {
                     break;
                 case FilterType.MetaTags:
                     result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.meta.size, value, filter.comparison)
-                    break;
-                case FilterType.LoreTags:
-                    result = post.tagCategoriesKnown && PostFilterUtils.compareNumbers(post.tags.lore.size, value, filter.comparison)
                     break;
 
                 case FilterType.IsParent:
@@ -323,14 +317,12 @@ enum FilterType {
 
     TagCount = "tagcount",
     GenTags = "gentags",
-    ArtTags = "arttags",
-    ContTags = "conttags",
+    DirTags = "dirtags",
+    FrancTags = "franctags",
     CharTags = "chartags",
-    CopyTags = "copytags",
     SpecTags = "spectags",
     InvTags = "invtags",
     MetaTags = "metatags",
-    LoreTags = "lortags",
 
     IsParent = "isparent",
     IsChild = "ischild",
