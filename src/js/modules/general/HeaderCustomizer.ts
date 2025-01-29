@@ -88,7 +88,7 @@ export class HeaderCustomizer extends RE6Module {
         this.hasForumUpdates = $("li#nav-forum").hasClass("forum-updated");
 
         // Create the structure and store the old navbar for later
-        this.$menu = $("menu.main");
+        this.$menu = $("menu.nav-primary");
         this.$oldMenu = $("<div>").css("display", "none").appendTo("body");
         this.$menu.children().appendTo(this.$oldMenu);
         this.$menu.addClass("custom");
@@ -144,9 +144,9 @@ export class HeaderCustomizer extends RE6Module {
         // === Tab Configuration Interface
         this.addTabButton = Util.DOM.addSettingsButton({
             id: "header-button-customizer",
-            name: `<i class="fas fa-tasks"></i>`,
+            name: `<i class="fas fa-tasks"></i> <span>Customize</span>`,
             title: "Edit Header Tabs",
-            tabClass: "float-left",
+            tabClass: "nav-re6-headercus",
         });
 
         const newTabForm = new Form(
@@ -219,7 +219,7 @@ export class HeaderCustomizer extends RE6Module {
 
         this.updateTabModal = new Modal({
             title: "Update Tab",
-            triggers: [{ element: $("menu.main li a") }],
+            triggers: [{ element: $("menu.nav-primary li a") }],
             content: Form.placeholder(),
             structure: this.updateTabForm,
             position: { my: "center top", at: "center top" },
