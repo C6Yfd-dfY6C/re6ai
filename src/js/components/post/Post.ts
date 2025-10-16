@@ -413,15 +413,15 @@ export interface PostData {
 
   tagString: string;
   tags: {
-      all: Set<string>;
-      director: Set<string>;
-      real_director: Set<string>;
-      franchise: Set<string>;
-      species: Set<string>;
-      character: Set<string>;
-      general: Set<string>;
-      invalid: Set<string>;
-      meta: Set<string>;
+    all: Set<string>;
+    director: Set<string>;
+    real_director: Set<string>;
+    franchise: Set<string>;
+    species: Set<string>;
+    character: Set<string>;
+    general: Set<string>;
+    invalid: Set<string>;
+    meta: Set<string>;
   };
   tagCategoriesKnown: boolean;
 

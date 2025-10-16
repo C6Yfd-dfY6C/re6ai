@@ -169,7 +169,7 @@ export namespace PostRating {
 
 export namespace APIPost {
 
-  export function getTags(post: APIPost): string[] {
+  export function getTags (post: APIPost): string[] {
     return [
       ...post.tags.director,
       ...post.tags.franchise,
@@ -177,7 +177,7 @@ export namespace APIPost {
       ...post.tags.general,
       ...post.tags.invalid,
       ...post.tags.meta,
-      ...post.tags.species
+      ...post.tags.species,
     ];
   }
 

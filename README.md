@@ -16,7 +16,7 @@
   </div>
 </div>
 
-RE6ai is a comprehensive project created to improve the basic user experience while browsing e621.net.  
+RE6ai is a comprehensive project created to improve the basic user experience while browsing e6ai.net.  
 It consists of several different modules that enhance the entire site, top to bottom - literally.
 
 ## Installation
