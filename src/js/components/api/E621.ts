@@ -1,4 +1,4 @@
-// E621 API Endpoint Wrapper
+// e6ai API Endpoint Wrapper
 // Version 2.1
 
 import { Debug } from "../utility/Debug";
@@ -7,8 +7,8 @@ import { APIResponse } from "./responses/APIResponse";
 
 // All endpoints must be registered here.
 // Name is irrelevant, as long as it is unique.
-// Path is the endpoint address, without https://e621.net/
-// Don't forget to update the name in the E621 aliases below
+// Path is the endpoint address, without https://e6ai.net/
+// Don't forget to update the name in the e6ai aliases below
 const ENDPOINT_DEFS: EndpointDefinition[] = [
   { name: "posts", path: "posts.json", node: "posts" },
   { name: "post", path: "posts/%ID%.json", node: "post" },
