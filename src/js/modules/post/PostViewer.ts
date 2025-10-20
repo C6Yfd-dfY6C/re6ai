@@ -5,7 +5,6 @@ import { Post } from "../../components/post/Post";
 import { PostActions } from "../../components/post/PostActions";
 import { RE6Module, Settings } from "../../components/RE6Module";
 import { Util } from "../../components/utility/Util";
-import { RISSizeLimit } from "../../components/utility/UtilSize";
 import { ThemeCustomizer } from "../general/ThemeCustomizer";
 
 /**
@@ -20,16 +19,16 @@ export class PostViewer extends RE6Module {
 
     const reqPage = PageDefinition.post;
     this.registerHotkeys(
-      { keys: "hotkeyUpvote", fnct: this.triggerUpvote, page: reqPage },
-      { keys: "hotkeyUpvoteNU", fnct: this.triggerUpvoteNU, page: reqPage },
-      { keys: "hotkeyDownvote", fnct: this.triggerDownvote, page: reqPage },
-      { keys: "hotkeyDownvoteNU", fnct: this.triggerDownvoteNU, page: reqPage },
+      // { keys: "hotkeyUpvote", fnct: this.triggerUpvote, page: reqPage },
+      // { keys: "hotkeyUpvoteNU", fnct: this.triggerUpvoteNU, page: reqPage },
+      // { keys: "hotkeyDownvote", fnct: this.triggerDownvote, page: reqPage },
+      // { keys: "hotkeyDownvoteNU", fnct: this.triggerDownvoteNU, page: reqPage },
 
-      { keys: "hotkeyFavorite", fnct: this.toggleFavorite, page: reqPage },
-      { keys: "hotkeyAddFavorite", fnct: this.addFavorite, page: reqPage },
-      { keys: "hotkeyRemoveFavorite", fnct: this.removeFavorite, page: reqPage },
+      // { keys: "hotkeyFavorite", fnct: this.toggleFavorite, page: reqPage },
+      // { keys: "hotkeyAddFavorite", fnct: this.addFavorite, page: reqPage },
+      // { keys: "hotkeyRemoveFavorite", fnct: this.removeFavorite, page: reqPage },
 
-      { keys: "hotkeyHideNotes", fnct: () => { this.toggleNotes(); }, page: reqPage },
+      { keys: "hotkeyHideNotes", fnct: () => this.toggleNotes(), page: reqPage },
       { keys: "hotkeyNewNote", fnct: this.switchNewNote, page: reqPage },
 
       { keys: "hotkeyAddSet", fnct: this.openSetDialogue, page: reqPage },
@@ -54,10 +53,10 @@ export class PostViewer extends RE6Module {
       { keys: "hotkeyOpenAPI", fnct: this.openAPI },
 
       { keys: "hotkeyOpenSauceNAO", fnct: this.openSauceNAO },
-      { keys: "hotkeyOpenKheina", fnct: this.openKheina },
       { keys: "hotkeyOpenGoogle", fnct: this.openGoogle },
       { keys: "hotkeyOpenYandex", fnct: this.openYandex },
       { keys: "hotkeyOpenDerpibooru", fnct: this.openDerpibooru },
+      { keys: "hotkeyOpenFuzzySearch", fnct: this.openFuzzySearch },
       { keys: "hotkeyOpenInkbunny", fnct: this.openInkbunny },
     );
   }
@@ -107,19 +106,18 @@ export class PostViewer extends RE6Module {
       hotkeyOpenIQDB: "",         // Searches for similar posts
       hotkeyOpenAPI: "",          // Shows raw post data
 
+      hotkeyOpenGoogle: "",       // Open Google Lens search
       hotkeyOpenSauceNAO: "",     // Open SauceNAO search
-      hotkeyOpenKheina: "",     // Open SauceNAO search
-      hotkeyOpenGoogle: "",     // Open SauceNAO search
-      hotkeyOpenYandex: "",     // Open SauceNAO search
-      hotkeyOpenDerpibooru: "",     // Open SauceNAO search
-      hotkeyOpenInkbunny: "",     // Open SauceNAO search
+      hotkeyOpenDerpibooru: "",   // Open Derpibooru search
+      hotkeyOpenYandex: "",       // Open Yandex search
+      hotkeyOpenFuzzySearch: "",  // Open FuzzySearch
+      hotkeyOpenInkbunny: "",     // Open Inkbunny md5 search
 
       upvoteOnFavorite: true,     // add an upvote when adding the post to favorites
       hideNotes: false,           // should the notes be hidden by default
 
       moveChildThumbs: false,     // Moves the parent/child post thumbnails to under the searchbar
       boldenTags: true,           // Restores the classic bold look on non-general tags
-      betterImageSearch: true,    // Uses larger version of the image for reverse image searches
     };
   }
 
@@ -134,50 +132,13 @@ export class PostViewer extends RE6Module {
 
     this.post = Post.getViewingPost();
 
-    // Move the add to set / pool buttons
-    const $addToContainer = $("<div>").attr("id", "image-add-links").insertAfter("div#image-download-link");
-    $("li#add-to-set-list > a")
-      .addClass("image-add-set")
-      .addClass("button btn-neutral")
-      .html("+ Set")
-      .appendTo($addToContainer);
-    $("li#add-to-pool-list > a")
-      .addClass("image-add-pool")
-      .addClass("button btn-neutral")
-      .html("+ Pool")
-      .appendTo($addToContainer);
+    // Add a new note button
+    const translateButton = $("#translate");
+    translateButton.parents("#add-notes-list").hide();
 
-
-    // Create the Note Toggle button
-    const $noteToggleContainer = $("<div>").attr("id", "image-toggle-notes").insertAfter("div#image-add-links");
-    $("<a>")
-      .attr({
-        "id": "image-note-button",
-        "href": "#",
-      })
-      .addClass("button btn-neutral")
-      .html(this.fetchSettings("hideNotes") ? "Notes: OFF" : "Notes: ON")
-      .appendTo($noteToggleContainer)
-      .on("click", (event) => {
-        event.preventDefault();
-        this.toggleNotes();
-      });
-    const $noteContainer = $("#note-container")
-      .css("display", "")
-      .attr("data-hidden", this.fetchSettings("hideNotes"));
-
-    // Move the note preview to root
-    $("#note-preview").insertBefore("#page");
-
-    $("#translate")
-      .appendTo("#image-toggle-notes")
-      .addClass("button btn-neutral")
-      .html("+ Note")
-      .on("click", async () => {
-        if (!await Danbooru.Note.TranslationMode.active()) return;
-        if ($noteContainer.attr("data-hidden") == "true")
-          this.toggleNotes(false);
-      });
+    translateButton.insertBefore($(".ptbr-resize").first())
+      .addClass("st-button kinetic")
+      .html("+ Note");
 
 
     // Move child/parent indicator, leave others as is, like marked for deletion
@@ -210,59 +171,18 @@ export class PostViewer extends RE6Module {
     // Bolden the tags
     this.toggleBoldenedTags(this.fetchSettings<boolean>("boldenTags"));
 
-    // Listen to favorites button click
-    $("#add-fav-button, #add-to-favorites").on("click", () => {
-      if (!this.fetchSettings("upvoteOnFavorite") || $("a.post-vote-up-link span").hasClass("score-positive")) return;
-      Danbooru.Post.vote(this.post.id, 1, true);
+    // Listen to favorites button attribute change
+    const favoriteButton = document.querySelector(".ptbr-favorite-button");
+
+    const mutationObserver = new MutationObserver((mutations) => {
+      if (!this.fetchSettings("upvoteOnFavorite") || $(".ptbr-vote[data-vote=1]")[0] || favoriteButton.getAttribute("favorited") != "true") return;
+      $(".ptbr-vote-button[data-action=1]")[0].click();
     });
 
-    // Fix reverse image search links
-    // Google       20MB
-    // SauceNAO     15MB
-    // Derpibooru   20MB
-    // Kheina        8MB    weakest link
-    if ($("#post-related-images").length == 0) {
-      $("<section>")
-        .attr("id", "post-related-images")
-        .html(`
-                    <h1>Related</h1>
-                    <ul>
-                        <li><a href="/post_sets?post_id=${this.post.id}">Sets with this post</a></li>
-                        <li><a href="/iqdb_queries?post_id=${this.post.id}">Visually similar on E6</a></li>
-                    </ul>
-                `)
-        .insertAfter("#post-history");
-    } else {
-      const useSample = !this.fetchSettings("betterImageSearch");
-      const links = [
-        ["/post_sets?post_id=" + this.post.id, "Sets with this post", true],
-        ["/iqdb_queries?post_id=" + this.post.id, "Visually similar on E6", true],
-        null,
-        ["https://saucenao.com/search.php?url=" + this.getSourceLink(RISSizeLimit.SauceNAO, useSample), "SauceNAO"],
-        ["https://kheina.com/?url=" + this.getSourceLink(RISSizeLimit.Kheina, useSample), "Kheina"],
-        ["https://www.google.com/searchbyimage?image_url=" + this.getSourceLink(RISSizeLimit.Google, useSample) + "&client=e621", "Google"],
-        ["https://yandex.ru/images/search?url=" + this.getSourceLink(RISSizeLimit.Yandex, useSample) + "&rpt=imageview", "Yandex"],
-        null,
-        ["https://derpibooru.org/search/reverse?url=" + this.getSourceLink(RISSizeLimit.Derpibooru, useSample), "Derpibooru"],
-        ["https://inkbunny.net/search_process.php?text=" + this.post.file.md5 + "&md5=yes", "Inkbunny"],
-      ];
-      $("#post-related-images ul").html(() => {
-        const htmlContent = [];
-        for (const link of links)
-          htmlContent.push(
-            link == null
-              ? `<li class="list-break"></li>`
-              : `<li><a href="${link[0]}" ${link[2] ? "" : `target="_blank" rel="noopener noreferrer"`} lookup="${link[1]}">${link[1]}</a></li>`);
-        return htmlContent.join("\n");
-      });
-    }
-  }
-
-  private getSourceLink (limit: RISSizeLimit, useSample: boolean): string {
-    // console.log(limit.toString());
-    return (useSample || !limit.test(this.post))
-      ? this.post.file.sample
-      : this.post.file.original;
+    mutationObserver.observe(favoriteButton, {
+      attributes: true,
+      attributeFilter: ["favorited"],
+    });
   }
 
   /** Toggles the boldened look on sidebar tags */
@@ -272,115 +192,57 @@ export class PostViewer extends RE6Module {
 
   /** Emulates a click on the upvote button */
   private triggerUpvote (): void {
-    Danbooru.Post.vote(Post.getViewingPost().id, 1);
+    $(".ptbr-vote-button[data-action=1]")[0].click();
   }
 
   /** Same as above, but does not unvote */
   private triggerUpvoteNU (): void {
-    const id = Post.getViewingPost().id;
-    PostActions.vote(id, 1, true).then((response) => {
-      if (!response.success) {
-        Danbooru.error("An error occurred while processing votes");
-        return;
-      }
-
-      $("span.post-vote-up-" + id)
-        .removeClass("score-neutral")
-        .addClass("score-positive");
-      $("span.post-vote-down-" + id)
-        .removeClass("score-negative")
-        .addClass("score-neutral");
-
-      $("span.post-score-" + id)
-        .removeClass("score-positive score-negative score-neutral")
-        .addClass(PostViewer.getScoreClass(response.score))
-        .attr("title", response.up + " up / " + response.down + " down")
-        .html(response.score + "");
-      if (response.score > 0) Danbooru.notice("Post Score Updated");
-    });
+    const voteWrap = $(".ptbr-vote");
+    if (voteWrap.attr("data-vote") !== "0") return;
+    $(".ptbr-vote-button[data-action=1]")[0].click();
   }
 
   /** Emulates a click on the downvote button */
   private triggerDownvote (): void {
-    Danbooru.Post.vote(Post.getViewingPost().id, -1);
+    $(".ptbr-vote-button[data-action=-1]")[0].click();
   }
 
   /** Same as above, but does not unvote */
   private triggerDownvoteNU (): void {
-    const id = Post.getViewingPost().id;
-    PostActions.vote(id, -1, true).then((response) => {
-      if (!response.success) {
-        Danbooru.error("An error occurred while processing votes");
-        return;
-      }
-
-      $("span.post-vote-down-" + id)
-        .addClass("score-negative")
-        .removeClass("score-neutral");
-      $("span.post-vote-up-" + id)
-        .removeClass("score-positive")
-        .addClass("score-neutral");
-
-      $("span.post-score-" + id)
-        .removeClass("score-positive score-negative score-neutral")
-        .addClass(PostViewer.getScoreClass(response.score))
-        .attr("title", response.up + " up / " + response.down + " down")
-        .html(response.score + "");
-      if (response.score < 0) Danbooru.notice("Post Score Updated");
-    });
-  }
-
-  private static getScoreClass (score: number): string {
-    if (score > 0) return "score-positive";
-    if (score < 0) return "score-negative";
-    return "score-neutral";
+    const voteWrap = $(".ptbr-vote");
+    if (voteWrap.attr("data-vote") !== "0") return;
+    $(".ptbr-vote-button[data-action=-1]")[0].click();
   }
 
   /** Toggles the favorite state */
   private toggleFavorite (): void {
-    if ($("div.fav-buttons").hasClass("fav-buttons-false")) {
-      $("#add-fav-button")[0].click();
-    } else { $("#remove-fav-button")[0].click(); }
+    $(".ptbr-favorite-button")[0].click();
   }
 
   /** Adds the post to favorites, does not remove it */
   private addFavorite (): void {
-    if ($("div.fav-buttons").hasClass("fav-buttons-false")) {
-      $("#add-fav-button")[0].click();
-    }
+    const btn = $(".ptbr-favorite-button");
+    if (btn.attr("favorited") == "true") return;
+    btn[0].click();
   }
 
   /** Removes the post from favorites, does not add it */
   private removeFavorite (): void {
-    if (!$("div.fav-buttons").hasClass("fav-buttons-false")) {
-      $("#remove-fav-button")[0].click();
-    }
+    const btn = $(".ptbr-favorite-button");
+    if (btn.attr("favorited") == "false") return;
+    btn[0].click();
   }
 
   /** Switches the notes container to its opposite state */
-  private async toggleNotes (updateSettings = true): Promise<void> {
-    const module = ModuleController.get(PostViewer),
-      hideNotes = module.fetchSettings("hideNotes");
-
-    if (hideNotes) {
-      $("#note-container").attr("data-hidden", "false");
-      $("a#image-note-button").html("Notes: ON");
-    } else {
-      $("#note-container").attr("data-hidden", "true");
-      $("a#image-note-button").html("Notes: OFF");
-    }
-
-    if (updateSettings)
-      await module.pushSettings("hideNotes", !hideNotes);
+  private async toggleNotes (): Promise<void> {
+    const btn = $(".ptbr-notes-button");
+    if (!btn.length) return;
+    btn[0].click();
   }
 
   /** Toggles the note editing interface */
   private async switchNewNote (): Promise<void> {
-    $("#note-container").attr("data-hidden", "false");
-    $("a#image-note-button").html("Notes: ON");
-    await ModuleController.get(PostViewer).pushSettings("hideNotes", false);
-
-    Danbooru.Note.TranslationMode.toggle();
+    $("#translate")[0].click();
   }
 
   /** Opens the dialog to add the post to the set */
@@ -479,22 +341,22 @@ export class PostViewer extends RE6Module {
     }
   }
 
-  private static openSourceLookup (source: "SauceNAO" | "Kheina" | "Google" | "Yandex" | "Derpibooru" | "Inkbunny"): void {
+  private static openSourceLookup (source: "Google" | "SauceNAO" | "Derpibooru" | "Yandex" | "FuzzySearch" | "Inkbunny"): void {
     if (!Page.matches(PageDefinition.post)) return;
-    const link = $(`a[lookup="${source}"]`).first();
+    const link = $(`#post-related-images a:contains("${source}")`).first();
     if (!link.length) return;
     link[0].click();
   }
 
+  private openGoogle (): void { PostViewer.openSourceLookup("Google"); }
+
   private openSauceNAO (): void { PostViewer.openSourceLookup("SauceNAO"); }
 
-  private openKheina (): void { PostViewer.openSourceLookup("Kheina"); }
-
-  private openGoogle (): void { PostViewer.openSourceLookup("Google"); }
+  private openDerpibooru (): void { PostViewer.openSourceLookup("Derpibooru"); }
 
   private openYandex (): void { PostViewer.openSourceLookup("Yandex"); }
 
-  private openDerpibooru (): void { PostViewer.openSourceLookup("Derpibooru"); }
+  private openFuzzySearch (): void { PostViewer.openSourceLookup("FuzzySearch"); }
 
   private openInkbunny (): void { PostViewer.openSourceLookup("Inkbunny"); }
 

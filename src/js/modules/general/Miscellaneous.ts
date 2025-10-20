@@ -20,7 +20,7 @@ export class Miscellaneous extends RE6Module {
     super();
     this.registerHotkeys(
       { keys: "hotkeyNewComment", fnct: this.openNewComment },
-      { keys: "hotkeyEditPost", fnct: this.openEditTab },
+      // { keys: "hotkeyEditPost", fnct: this.openEditTab },
       { keys: "hotkeyToggleBlacklist", fnct: this.toggleBlacklist },
       { keys: "hotkeySubmit", fnct: this.handleSubmitForm, element: "body", selector: "textarea, input" },
       { keys: "hotkeyRandomSetPost", fnct: this.randomSetPost },
@@ -57,8 +57,6 @@ export class Miscellaneous extends RE6Module {
       disableCommentRules: true,  // Disable the "read the how to comment guide" warning
 
       fixForumTitle: true,
-
-      profileEnhancements: true,
     };
   }
 
@@ -172,9 +170,6 @@ export class Miscellaneous extends RE6Module {
     // Move the ad leaderboard
     $("#ad-leaderboard").prependTo("#content");
 
-    // Reset the content headers
-    this.resetContentHeaders();
-
     // Add a mail button
     Util.DOM.addSettingsButton({
       id: "header-button-dmail",
@@ -194,14 +189,6 @@ export class Miscellaneous extends RE6Module {
       for (const el of array) result.push(encodeURIComponent(el));
       return result.join(delimiter);
     }
-  }
-
-  /** Reset the content headers */
-  public resetContentHeaders (): void {
-    const config = this.fetchSettings(["profileEnhancements"]);
-
-    if (Page.matches(PageDefinition.profile) && config.profileEnhancements) $("#page").attr("enhancements", "true");
-    else $("#c-users").removeAttr("enhancements");
   }
 
   /** Emulates the clicking on "New Comment" link */
