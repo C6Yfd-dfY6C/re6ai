@@ -60,6 +60,7 @@ export class Post implements PostData {
     general: Set<string>;
     invalid: Set<string>;               // usually empty, not sure why it even exists
     meta: Set<string>;
+    lore: Set<string>;
   };
 
   tagCategoriesKnown: boolean;            // false if the data is scraped from the page, and is thus missing tag category data
@@ -422,6 +423,7 @@ export interface PostData {
     general: Set<string>;
     invalid: Set<string>;
     meta: Set<string>;
+    lore: Set<string>;
   };
   tagCategoriesKnown: boolean;
 
@@ -518,6 +520,7 @@ export namespace PostData {
         general: new Set(data.tags.general),
         invalid: new Set(data.tags.invalid),
         meta: new Set(data.tags.meta),
+        lore: new Set(data.tags.lore),
       },
       tagCategoriesKnown: true,
 
@@ -585,6 +588,7 @@ export namespace PostData {
       invalid: getTags("invalid"),
       meta: getTags("meta"),
       species: getTags("species"),
+      lore: getTags("lore"),
     };
     data["uploader_name"] = $article.attr("data-uploader");
 
@@ -696,6 +700,7 @@ export namespace PostData {
         general: new Set<string>(),
         invalid: new Set<string>(),
         meta: new Set<string>(),
+        lore: new Set<string>(),
       },
       tagCategoriesKnown: false,
 
