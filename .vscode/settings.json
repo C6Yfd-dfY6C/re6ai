@@ -6,4 +6,5 @@
   "editor.insertSpaces": true,
   "editor.rulers": [100],
   "editor.formatOnSave": false,
+  "npm.packageManager": "bun",
 }

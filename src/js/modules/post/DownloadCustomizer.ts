@@ -43,9 +43,9 @@ export class DownloadCustomizer extends RE6Module {
 
     this.post = Post.getViewingPost();
 
-    const downloadContainer = $("<div>")
-      .attr("id", "image-custom-download-links")
-      .appendTo("#image-extra-controls");
+    const downloadContainer = $(".ptbr-etc-menu");
+
+    downloadContainer.find(".ptbr-etc-download").hide();
 
     const link = $("<a>")
       .attr({
@@ -54,7 +54,7 @@ export class DownloadCustomizer extends RE6Module {
         download: this.parseTemplate(),
       })
       .html("Download")
-      .addClass("button btn-neutral")
+      .addClass("st-button kinetic")
       .appendTo(downloadContainer)
       .on("click", (event) => {
         event.preventDefault();
@@ -75,7 +75,7 @@ export class DownloadCustomizer extends RE6Module {
         download: this.parseTemplate("txt"),
       })
       .html("Tags")
-      .addClass("button btn-neutral")
+      .addClass("st-button kinetic")
       .appendTo(downloadContainer)
       .on("click", () => {
         tags.attr("loading", "true");

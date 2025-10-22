@@ -21,4 +21,5 @@ export enum TagCategory {
   Species = 5,
   Invalid = 6,
   Meta = 7,
+  Lore = 8,
 }

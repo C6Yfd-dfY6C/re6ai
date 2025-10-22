@@ -49,6 +49,7 @@ interface Tags {
   director: string[];
   invalid: string[];
   meta: string[];
+  lore: string[];
 }
 
 interface Score {
@@ -178,6 +179,7 @@ export namespace APIPost {
       ...post.tags.invalid,
       ...post.tags.meta,
       ...post.tags.species,
+      ...post.tags.lore,
     ];
   }
 
