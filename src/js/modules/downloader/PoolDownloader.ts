@@ -62,7 +62,7 @@ export class PoolDownloader extends RE6Module {
   public getDefaultSettings (): Settings {
     return {
       enabled: true,
-      template: "%pool%/%index%-%postid%-%artist%-%copyright%-%character%-%species%",
+      template: "%pool%/%index%-%postid%-%director%-%franchise%-%character%-%species%",
       archive: "%poolname%-%timestamp%",
       autoDownloadArchive: true,
     };
