@@ -20,7 +20,7 @@ export class TitleCustomizer extends RE6Module {
   protected getDefaultSettings (): Settings {
     return {
       enabled: true,
-      template: "#%postid% by %artist% (%copyright%) - %character%",
+      template: "#%postid% by %director% (%franchise%) - %character%",
       symbolsEnabled: true,
       symbolFav: "\u2665",      // heart symbol
       symbolVoteUp: "\u2191",   // arrow up

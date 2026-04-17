@@ -55,7 +55,7 @@ export class FavDownloader extends RE6Module {
   public getDefaultSettings (): Settings {
     return {
       enabled: true,
-      template: "%artist%/%postid%-%copyright%-%character%-%species%",
+      template: "%director%/%postid%-%franchise%-%character%-%species%",
       archive: "%userid%-favorites-%timestamp%",
       autoDownloadArchive: true,
     };

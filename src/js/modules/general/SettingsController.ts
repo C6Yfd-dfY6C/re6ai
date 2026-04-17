@@ -10,6 +10,7 @@ import { RE6Module, Settings } from "../../components/RE6Module";
 import { Form, FormElement } from "../../components/structure/Form";
 import { Modal } from "../../components/structure/Modal";
 import { Tabbed } from "../../components/structure/Tabbed";
+import { Icons } from "../../components/utility/Icons";
 import { Debug } from "../../components/utility/Debug";
 import { Patcher } from "../../components/utility/Patcher";
 import { Util } from "../../components/utility/Util";
@@ -71,8 +72,8 @@ export class SettingsController extends RE6Module {
     // Create a button in the header
     this.openSettingsButton = Util.DOM.addSettingsButton({
       id: "header-button-settings",
-      name: `<i class="fas fa-wrench"></i> <span>RE621</span>`,
-      title: "RE621 Settings",
+      name: `${Icons.get("wrench")} <span>RE621</span>`,
+      title: "RE6AI Settings",
       tabClass: "nav-re6-settings",
       attr: {
         "data-loading": "false",
@@ -845,8 +846,8 @@ export class SettingsController extends RE6Module {
           Form.section({ columns: 3, width: 3 }, [
             Form.div({ value: `<div class="notice">The following variables can be used:</div>`, width: 3 }),
             Form.copy({ value: "%postid%", label: "Post ID" }),
-            Form.copy({ value: "%artist%", label: "Artist" }),
-            Form.copy({ value: "%copyright%", label: "Copyright" }),
+            Form.copy({ value: "%director%", label: "Director" }),
+            Form.copy({ value: "%franchise%", label: "Franchise" }),
             Form.copy({ value: "%character%", label: "Characters" }),
             Form.copy({ value: "%species%", label: "Species" }),
             Form.copy({ value: "%general%", label: "General" }),
@@ -1203,8 +1204,8 @@ export class SettingsController extends RE6Module {
         Form.section({ columns: 3, width: 3 }, [
           Form.div({ value: `<div class="notice unmargin">The following variables can be used:</div>`, width: 3 }),
           Form.copy({ value: "%postid%", label: "Post ID" }),
-          Form.copy({ value: "%artist%", label: "Artist" }),
-          Form.copy({ value: "%copyright%", label: "Copyright" }),
+          Form.copy({ value: "%director%", label: "Director" }),
+          Form.copy({ value: "%franchise%", label: "Franchise" }),
           Form.copy({ value: "%character%", label: "Characters" }),
           Form.copy({ value: "%species%", label: "Species" }),
           Form.copy({ value: "%meta%", label: "Meta" }),
@@ -1898,7 +1899,7 @@ export class SettingsController extends RE6Module {
         .appendTo(flagContainer);
 
       $("<button>")
-        .html(`<i class="far fa-trash-alt"></i>`)
+        .html(Icons.get("trash-alt"))
         .appendTo(flagContainer)
         .on("click", () => {
           flagContainer.remove();
@@ -1987,7 +1988,7 @@ export class SettingsController extends RE6Module {
     return new Form({ name: "conf-hotkeys", columns: 3, width: 3 }, [
       // Listing
       Form.div({
-        value: "<center><b>Note:</b> Vanilla e621 hotkeys can be rebound <a href='/static/keyboard_shortcuts/'>here</a>.</center>",
+        value: "<center><b>Note:</b> Vanilla e6AI hotkeys can be rebound <a href='/static/keyboard_shortcuts/'>here</a>.</center>",
         width: 3,
       }),
 
@@ -2044,6 +2045,7 @@ export class SettingsController extends RE6Module {
           ...createInputs(postViewer, "Search Yandex", "hotkeyOpenYandex"),
           ...createInputs(postViewer, "Search FuzzySearch", "hotkeyOpenFuzzySearch"),
           ...createInputs(postViewer, "Search Inkbunny", "hotkeyOpenInkbunny"),
+          ...createInputs(postViewer, "Search Fluffle", "hotkeyOpenFluffle"),
           Form.hr(3),
         ],
       ),

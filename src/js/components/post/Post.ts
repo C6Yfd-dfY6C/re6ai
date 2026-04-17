@@ -153,6 +153,7 @@ export class Post implements PostData {
       "buttonsVote",
       "buttonsFav",                        // renderButtons
       "customFlagsExpanded",
+      "imageWidth",
     ]);
 
     // Get upvoteOnFavorite setting from PostViewer
@@ -176,8 +177,8 @@ export class Post implements PostData {
       .append(PostParts.renderImage(this, conf))       // Image
       .append(PostParts.renderRibbons(this, conf))     // Ribbons
       .append(PostParts.renderButtons(this, conf))     // Voting Buttons
-      .append(PostParts.renderFlags(this, conf))             // Custom Flags
-      .append(PostParts.renderInfo(this));              // Post info
+      .append(PostParts.renderFlags(this, conf))       // Custom Flags
+      .append(PostParts.renderInfo(this, conf));       // Post info
 
     if (!conf.imageRatioChange) this.$ref.css("--img-ratio", this.img.ratio);
     if (this.meta.duration) this.$ref.css("--duration", this.meta.duration);
@@ -774,6 +775,7 @@ export enum FileExtension {
   JPG = "jpg",
   PNG = "png",
   GIF = "gif",
+  WEBP = "webp",
   SWF = "swf",
   WEBM = "webm",
   MP4 = "mp4",
@@ -786,6 +788,7 @@ export namespace FileExtension {
       case "jpg": return FileExtension.JPG;
       case "png": return FileExtension.PNG;
       case "gif": return FileExtension.GIF;
+      case "webp": return FileExtension.WEBP;
       case "swf": return FileExtension.SWF;
       case "webm": return FileExtension.WEBM;
       case "mp4": return FileExtension.MP4;
