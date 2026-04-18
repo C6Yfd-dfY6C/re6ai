@@ -45,7 +45,7 @@ export class PostViewer extends RE6Module {
       { keys: "hotkeyAddSetCustom5", fnct: () => { this.addSetCustom("hotkeyAddSetCustom5_data"); }, page: reqPage },
 
       { keys: "hotkeyOpenHistory", fnct: this.openImageHistory },
-      { keys: "hotkeyOpenArtist", fnct: this.openArtist, page: reqPage },
+      { keys: "hotkeyOpenDirector", fnct: this.openDirector, page: reqPage },
       { keys: "hotkeyOpenSource", fnct: this.openSource, page: reqPage },
       { keys: "hotkeyOpenParent", fnct: this.openParent, page: reqPage },
       { keys: "hotkeyToggleRel", fnct: this.toggleRelSection, page: reqPage },
@@ -100,7 +100,7 @@ export class PostViewer extends RE6Module {
       hotkeyAddSetCustom5_data: "0",
 
       hotkeyOpenHistory: "",      // Opens the post history for the current image
-      hotkeyOpenArtist: "",       // Opens the search page for the post's artist
+      hotkeyOpenDirector: "",       // Opens the search page for the post's artist
       hotkeyOpenSource: "",       // Opens the first image source in a new tab
       hotkeyOpenParent: "",       // Opens the parent/child post, if there is one
       hotkeyToggleRel: "",        // Toggles the relationship section
@@ -319,7 +319,7 @@ export class PostViewer extends RE6Module {
   }
 
   /** Searches for other works by the artist, if there is one */
-  private openArtist (): void { PostViewer.lookupClick("li.category-1 a.search-tag"); }
+  private openDirector (): void { PostViewer.lookupClick("a.search-tag.tag-type-director"); }
 
   /** Opens the first source link */
   private openSource (): void { PostViewer.lookupClick("div.source-link a"); }

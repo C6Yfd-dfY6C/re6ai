@@ -22,7 +22,7 @@ export class SmartAlias extends RE6Module {
     "#re621_qedit_tags",    // re621's version
 
     // Upload page inputs
-    "#post_artist",
+    "#post_director",
     "#post_character",
     "#post_species",
     "#post_themes",
@@ -822,7 +822,7 @@ export class SmartAlias extends RE6Module {
       input[i] = input[i]
         .replace(/[.+?^${}()|[\]\\]/g, "\\$&")
         .replace(/\*/g, "(\\S*)");
-    return new RegExp("((?:^|\n| )-?(?:(?:artist|contributor|character|copyright|species):)?)(" + input.join("|") + ")( |\n|$)", "gi");
+    return new RegExp("((?:^|\n| )-?(?:(?:director|character|franchise|species):)?)(" + input.join("|") + ")( |\n|$)", "gi");
   }
 
   /**
@@ -956,7 +956,7 @@ namespace ParsedTag {
       rawTag = rawTag.substr(1);
     }
 
-    const match = rawTag.match(/(artist|contributor|character|copyright|species):/);
+    const match = rawTag.match(/(director|character|franchise|species):/);
     if (match) {
       result.prefix = match[1];
       rawTag = rawTag.substr(match[0].length);

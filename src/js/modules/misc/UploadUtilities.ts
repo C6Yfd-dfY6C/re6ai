@@ -189,7 +189,7 @@ export class UploadUtilities extends RE6Module {
           src: postData.is_deleted ? "/images/deleted-preview.png" : postData["preview_file_url"],
           title:
                         `${postData.image_width}x${postData.image_height} ${Util.Size.format(postData.file_size)} ${Math.round(entry.score)}% match\n`
-                        + `${postData.tag_string_artist}\n${postData.tag_string_copyright}\n${postData.tag_string_character}\n${postData.tag_string_species}`,
+                        + `${postData.tag_string_director}\n${postData.tag_string_franchise}\n${postData.tag_string_character}\n${postData.tag_string_species}`,
         })
         .appendTo(link);
 

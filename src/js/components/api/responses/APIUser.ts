@@ -18,7 +18,7 @@ export interface APIUser extends APIResponse {
 export interface APICurrentUser extends APIUser {
   id: number;
   wiki_page_version_count: number;
-  artist_version_count: number;
+  director_version_count: number;
   pool_version_count: number;
   forum_post_count: number;
   comment_count: number;

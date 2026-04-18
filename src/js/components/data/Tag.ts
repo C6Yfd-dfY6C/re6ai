@@ -1,5 +1,5 @@
 export enum TagTypes {
-  Artist = "artist",
+  Director = "director",
   Character = "character",
   Copyright = "copyright",
   Species = "species",
@@ -10,14 +10,15 @@ export enum TagTypes {
 
 export class Tag {
 
-  private static nonArtistTags = [
-    "unknown_artist",
-    "unknown_artist_signature",
+  private static nonDirectorTags = [
+    "unknown_director",
+    "unknown_director_signature",
     "unknown_colorist",
-    "anonymous_artist",
+    "anonymous_director",
     "avoid_posting",
     "conditional_dnp",
     "sound_warning",
+    "loud_sound_warning",
     "epilepsy_warning",
   ];
 
@@ -27,8 +28,8 @@ export class Tag {
    * Does NOT take into consideration the tag type
    * In this functions eyes a general tag will also be an artist tag
    */
-  public static isArtist (tag: string): boolean {
-    return Tag.nonArtistTags.indexOf(tag) === -1;
+  public static isDirector (tag: string): boolean {
+    return Tag.nonDirectorTags.indexOf(tag) === -1;
   }
 
   /**

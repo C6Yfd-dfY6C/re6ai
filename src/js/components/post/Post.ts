@@ -53,7 +53,7 @@ export class Post implements PostData {
   public tags: {
     all: Set<string>;
     director: Set<string>;
-    real_director: Set<string>;         // same as artist, minus tags like `conditional_dnp` or `sound_warning`. See `Tag.isArtist()` for more info.
+    real_director: Set<string>;         // same as director, minus tags like `conditional_dnp` or `sound_warning`. See `Tag.isDirector()` for more info.
     franchise: Set<string>;
     species: Set<string>;
     character: Set<string>;
@@ -514,7 +514,7 @@ export namespace PostData {
       tags: {
         all: tags,
         director: new Set(data.tags.director),
-        real_director: new Set(data.tags.director.filter(tag => Tag.isArtist(tag))),
+        real_director: new Set(data.tags.director.filter(tag => Tag.isDirector(tag))),
         franchise: new Set(data.tags.franchise),
         species: new Set(data.tags.species),
         character: new Set(data.tags.character),

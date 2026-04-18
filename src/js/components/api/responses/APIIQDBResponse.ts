@@ -50,9 +50,8 @@ export interface APIIQDBResponse extends APIResponse {
       has_visible_children: boolean;
 
       tag_count: number;
-      tag_count_artist: number;
-      tag_count_contributor: number;
-      tag_count_copyright: number;
+      tag_count_director: number;
+      tag_count_franchise: number;
       tag_count_character: number;
       tag_count_species: number;
       tag_count_general: number;
@@ -61,9 +60,8 @@ export interface APIIQDBResponse extends APIResponse {
       tag_count_lore: number;
 
       tag_string: string;
-      tag_string_artist: string;
-      tag_string_contributor: string;
-      tag_string_copyright: string;
+      tag_string_director: string;
+      tag_string_franchise: string;
       tag_string_character: string;
       tag_string_species: string;
       tag_string_general: string;

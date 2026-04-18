@@ -29,8 +29,8 @@ export class TagTracker extends SubscriptionTracker {
       selector: "#tag-box li span.tag-list-subscribe, #tag-list li span.tag-list-subscribe",
     },
     major: {
-      regex: [PageDefinition.wiki, PageDefinition.wikiNA, PageDefinition.artist],
-      selector: "#c-wiki-pages > #a-show > #content > h1:first, #c-artists > #a-show > h1:first",
+      regex: [PageDefinition.wiki, PageDefinition.wikiNA, PageDefinition.director],
+      selector: "#c-wiki-pages > #a-show > #content > h1:first, #c-directors > #a-show > h1:first",
     },
   };
 

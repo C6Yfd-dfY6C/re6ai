@@ -357,14 +357,14 @@ export class MassDownloader extends RE6Module {
 
   public static createFilenameBase (template: string, post: PostData): string {
 
-    // Don't include non-artist tags in the file name
-    const trimmedArtists = post.tags.director;
-    for (const tag of ["conditional_dnp", "avoid_posting", "sound_warning", "epilepsy_warning"])
-      trimmedArtists.delete(tag);
+    // Don't include non-director tags in the file name
+    const trimmedDirectors = post.tags.director;
+    for (const tag of ["conditional_dnp", "avoid_posting", "sound_warning", "loud_sound_warning", "epilepsy_warning"])
+      trimmedDirectors.delete(tag);
 
     return template
       .replace(/%postid%/g, post.id + "")
-      .replace(/%director%/g, tagSetToString(trimmedArtists))
+      .replace(/%director%/g, tagSetToString(trimmedDirectors))
       .replace(/%franchise%/g, tagSetToString(post.tags.franchise))
       .replace(/%character%/g, tagSetToString(post.tags.character))
       .replace(/%species%/g, tagSetToString(post.tags.species))

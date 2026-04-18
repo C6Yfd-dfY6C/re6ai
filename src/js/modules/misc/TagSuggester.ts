@@ -12,7 +12,7 @@ export class TagSuggester extends RE6Module {
 
   // Element selectors that TagSuggester should track
   private static inputSelectors = new Set([
-    "#post_characters",     // artist
+    "#post_characters",     // director
     "#post_sexes",          // characters
     "#post_bodyTypes",      // body types
     "#post_themes",         // themes

@@ -26,7 +26,7 @@ export class JanitorEnhancements extends RE6Module {
 
     if (Page.matches(PageDefinition.post)) {
       this.cleanupRecords();
-      this.decorateArtistName();
+      this.decorateDirectorName();
     }
 
     if (Page.matches(PageDefinition.postConfirmDelete)) {
@@ -42,11 +42,11 @@ export class JanitorEnhancements extends RE6Module {
     $("#post-information a[href^='/user_feedbacks']").html((index, html) => html.replace(/^\( +/, "(").replace(/ +\)$/, ")"));
   }
 
-  private decorateArtistName (): void {
+  private decorateDirectorName (): void {
     const post = Post.getViewingPost();
-    // console.log(post.tags.artist, post.uploaderName.toLowerCase());
+    // console.log(post.tags.director, post.uploaderName.toLowerCase());
     if (post.tags.director.has(post.uploaderName.toLowerCase()))
-      $(`<span class="post-uploader-artist">(artist)</span>`).appendTo("#post-information li:contains('Uploader')");
+      $(`<span class="post-uploader-director">(director)</span>`).appendTo("#post-information li:contains('Uploader')");
   }
 
   private approvePost (): void {

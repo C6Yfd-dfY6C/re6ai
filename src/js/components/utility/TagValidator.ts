@@ -5,7 +5,7 @@ export class TagValidator {
 
   private static metatagsRegex = new RegExp(`^(${TagValidator.metatags.join("|")}):(.+)$`, "i");
 
-  private static categories = ["general", "species", "character", "copyright", "artist", "contributor", "invalid", "lore", "meta"];
+  private static categories = ["general", "species", "character", "franchise", "director", "invalid", "lore", "meta"];
 
   private static categoriesRegex = new RegExp(`^(${TagValidator.categories.join("|")}):(.+)$`, "i");
 

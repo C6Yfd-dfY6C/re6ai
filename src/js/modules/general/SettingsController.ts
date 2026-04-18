@@ -2032,7 +2032,7 @@ export class SettingsController extends RE6Module {
           ...createInputs(postViewer, "Toggle Notes", "hotkeyHideNotes"),
           ...createInputs(postViewer, "Edit Notes", "hotkeyNewNote"),
           ...createInputs(postViewer, "Post History", "hotkeyOpenHistory"),
-          ...createInputs(postViewer, "Go To Artist", "hotkeyOpenArtist"),
+          ...createInputs(postViewer, "Go To Director", "hotkeyOpenDirector"),
           ...createInputs(postViewer, "Go To Source", "hotkeyOpenSource"),
           ...createInputs(postViewer, "Go To Parent", "hotkeyOpenParent"),
           ...createInputs(postViewer, "Toggle Child Posts", "hotkeyToggleRel"),

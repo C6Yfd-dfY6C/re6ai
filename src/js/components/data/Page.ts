@@ -124,7 +124,7 @@ export const PageDefinition = {
   favorites: /^\/favorites\/?.*/,
   wiki: /^\/wiki_pages\/[0-9]+/,
   wikiNA: /^\/wiki_pages\/show_or_new.*/,
-  artist: /^\/artists\/[0-9]+/,
+  director: /^\/directors\/[0-9]+/,
   comments: /^\/comments\??.*/,
   settings: /^\/users\/\.+\/edit$/,
   changes: /^\/post_versions.*/,
